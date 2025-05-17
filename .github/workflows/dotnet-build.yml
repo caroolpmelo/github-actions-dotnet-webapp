@@ -1,0 +1,36 @@
+name: dotnet package
+
+on:
+  [push, pull_request]:
+  schedule:
+    - cron: '0 * * * *' #every hour on minute 0
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: [ '6.0.x', '8.0.x' ]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup dotnet ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+
+      - name: Display dotnet version
+        run: dotnet --version
+
+      - name: Run workflow
+        run: echo "Run dotnet build workflow"
+
+      - name: Setup .NET 6.x
+        uses: actions/setup-dotnet@v4
+        with:
+          # Semantic version range syntax or exact version of a dotnet version
+          dotnet-version: '6.x'
+      
+      - name: Code checkout
+        uses: actions/checkout@v4
