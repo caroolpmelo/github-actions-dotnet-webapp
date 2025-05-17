@@ -1,7 +1,7 @@
 name: dotnet package
 
 on:
-  [push, pull_request]:
+  push:
   schedule:
     - cron: '0 * * * *' #every hour on minute 0
 
